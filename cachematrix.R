@@ -1,8 +1,8 @@
-# The purpose of these functions is to cache an invertable matrix.
-# The first function (makeCacheMatrix) is used for setting the the standard and invertable matrix,
-# it also is used to return the details of the stored standard and invertable matrix.
+# The purpose of these functions is to cache an invertible matrix, Matrix inversion can be costly.
+# The first function (makeCacheMatrix) is used for setting the the standard and invertible matrix,
+# it also is used to return the details of the stored standard and invertible matrix.
 # The first function is also used by the second function (cacheSolve) for caching an 
-# invertable matrix, if there is no defined inverted matrix then one is evaluated and stored, 
+# invertible matrix, if there is no defined inverted matrix then one is evaluated and stored, 
 # once the inverted matrix is cached this function is called the cached inverted matrix is returned.
 #
 
@@ -14,12 +14,12 @@
 # $setinv         - Sets a new Inverted Matrix 
 # $getinv         - Returns the cached inverted matrix  
 #
-# There is no checking in this funtion to detemine if the matrix is invertable.
+# There is no checking in this function to determine if the matrix is invertible.
 #
 makeCacheMatrix <- function(x = matrix()) {
       inv <- NULL           # Removes invert matrix from cache
       set <- function(y) {  # Seems to behave like a setter method in OOP
-            x <<- y         # Passes the matrix up the env, setter
+            x <<- y         # Passes the matrix up the env
             inv <<- NULL    # Removes invert matrix from cache
       }
       get <- function() x   # Seems to behave like a getter method in OOP
@@ -34,19 +34,19 @@ makeCacheMatrix <- function(x = matrix()) {
 # cacheSolve
 # ----------
 #
-# This function will cache an inverterted matrix using the makeCacheMatrix function.
+# This function will cache an inverted matrix using the makeCacheMatrix function.
 # If the inverted matrix is already in cache then it will just return the cached one.
 #
 cacheSolve <- function(x, ...) {
       inv <- x$getinv()                   # Gets invert matrix into variable
       if(!is.null(inv)) {
             message("getting cached data") 
-            return(inv)                   # Returns the matrix to tha caller
+            return(inv)                   # Returns the matrix to the caller
       }                                   # This if checks if matrix cached, exits if it is 
       data <- x$get()                     # Gets the non inverted matrix into a var
       inv <- solve(data, ...)             # Inverts the matrix
       x$setinv(inv)                       # Sets the new inverted to cache
-      return(inv)                         # Returns the matrix to tha caller
+      return(inv)                         # Returns the matrix to the caller
 }
 
 # Use Case for these functions
